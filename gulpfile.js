@@ -25,7 +25,8 @@ gulp.task('copy-dependencies', function() {
     return gulp.src([
         'node_modules/bootstrap/dist/**/*',
         'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/angular/angular.*'])
+        'node_modules/angular/angular.*',
+        'node_modules/angular-route/angular-route.*'])
         .pipe(gulp.dest(BUILD_OUTPUT_PATH + '/vendor'));
 });
 
@@ -33,10 +34,10 @@ gulp.task('build', ['copy-dependencies'],function() {
 
     return gulp.src('src/main/html/**/*.html')
         .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
-        .pipe(html2js({ outputModuleName: PROJECT_NAME, base: 'src/main/' }))
+        .pipe(html2js({ outputModuleName: PROJECT_NAME, base: 'src/main' }))
         .pipe(concat('views.js'))
 
-        .pipe(addsrc('src/main/javascript/**/*.js'))
+        .pipe(addsrc(['src/main/javascript/app.js', 'src/main/javascript/**/*.js']))
 
         //Wrap the concatenated files in an IIFE to prevent global namespace pollution
         .pipe(wrap('(function(){\r\n\r\n<%= contents %>\r\n\r\n}(angular));'))
