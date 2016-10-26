@@ -24,6 +24,10 @@ buildscript {
 apply plugin: 'com.moowork.node'
 apply plugin: 'com.moowork.gulp'
 
-
+gulp_build.dependsOn 'npmInstall'
+gulp_build.dependsOn 'installGulp'
 build.dependsOn gulp_build
+
+gulp_test.dependsOn 'npmInstall'
+gulp_test.dependsOn 'installGulp'
 test.dependsOn gulp_test
