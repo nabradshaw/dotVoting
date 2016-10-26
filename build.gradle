@@ -14,10 +14,9 @@ buildscript {
     }
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:1.4.1.RELEASE"
+    testCompile "org.springframework.boot:spring-boot-starter-test:1.4.1.RELEASE"
+    testCompile "org.springframework:spring-test:4.3.3.RELEASE"
     testCompile 'junit:junit:4.12'
 }
