@@ -2,3 +2,8 @@ language: java
 jdk: oraclejdk8
 
 script: ./gradlew clean build
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
