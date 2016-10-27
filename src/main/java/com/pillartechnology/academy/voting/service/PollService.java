@@ -2,10 +2,12 @@ package com.pillartechnology.academy.voting.service;
 
 import com.pillartechnology.academy.voting.model.PollItemModel;
 import com.pillartechnology.academy.voting.model.PollModel;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class PollService {
 
     private PollModel model;
