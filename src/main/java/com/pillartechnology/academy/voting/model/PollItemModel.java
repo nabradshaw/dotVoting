@@ -10,7 +10,10 @@ public class PollItemModel {
     }
 
     public synchronized void alterVoteCount(int amount) {
-        this.voteCount += amount;
+        voteCount += amount;
+        if(voteCount < 0) {
+            voteCount = 0;
+        }
     }
 
     public String getDescription() {
