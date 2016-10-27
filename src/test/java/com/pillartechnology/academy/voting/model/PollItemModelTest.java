@@ -14,4 +14,13 @@ public class PollItemModelTest {
         item.alterVoteCount(5);
         assertThat(item.getVoteCount()).isEqualTo(5);
     }
+
+    @Test
+    public void alterVoteCount_WhenGivenANegativeNumber_DecrementsTheVoteCount() throws Exception {
+        PollItemModel item = new PollItemModel();
+        item.alterVoteCount(5);
+        item.alterVoteCount(-3);
+
+        assertThat(item.getVoteCount()).isEqualTo(2);
+    }
 }
