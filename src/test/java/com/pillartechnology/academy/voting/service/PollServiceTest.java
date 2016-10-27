@@ -11,17 +11,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PollServiceTest {
 
     @Test
-    public void get_RetrievesThePoll() {
+    public void getPoll_RetrievesThePoll() {
         PollModel expected = new PollModel();
         PollService pollService = new PollService(expected);
-        PollModel actual = pollService.get();
+        PollModel actual = pollService.getPoll();
         assertThat(actual).isSameAs(expected);
     }
 
     @Test
     public void whenNoPollProvided_CreatesADefaultPoll_PollHasAnId() {
         PollService pollService = new PollService();
-        PollModel poll = pollService.get();
+        PollModel poll = pollService.getPoll();
 
         assertThat(poll.getId()).isEqualTo("1");
     }
@@ -29,7 +29,7 @@ public class PollServiceTest {
     @Test
     public void whenNoPollProvided_CreatesADefaultPoll_WithATitle() {
         PollService pollService = new PollService();
-        PollModel poll = pollService.get();
+        PollModel poll = pollService.getPoll();
 
         assertThat(poll.getTitle()).isEqualTo("Default Poll");
     }
@@ -37,7 +37,7 @@ public class PollServiceTest {
     @Test
     public void whenNoPollProvided_CreatesADefaultPoll_WithThreeItems_WithDescriptions() {
         PollService pollService = new PollService();
-        PollModel poll = pollService.get();
+        PollModel poll = pollService.getPoll();
         List<PollItemModel> pollItems = poll.getPollItems();
 
         assertThat(pollItems).hasSize(3);
@@ -49,7 +49,7 @@ public class PollServiceTest {
     @Test
     public void whenNoPollProvided_CreatesADefaultPoll_WithThreeItems_WithIds() {
         PollService pollService = new PollService();
-        PollModel poll = pollService.get();
+        PollModel poll = pollService.getPoll();
         List<PollItemModel> pollItems = poll.getPollItems();
 
         assertThat(pollItems).hasSize(3);

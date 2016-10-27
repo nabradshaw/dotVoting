@@ -33,7 +33,7 @@ public class PollService {
     }
 
 
-    public PollModel get() {
+    public PollModel getPoll() {
         return model;
     }
 }
