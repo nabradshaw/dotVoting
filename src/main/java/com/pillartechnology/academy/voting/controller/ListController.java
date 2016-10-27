@@ -22,4 +22,8 @@ public class ListController {
     public PollModel getPoll() {
         return pollService.getPoll();
     }
+
+    public void savePoll(PollModel poll) {
+        pollService.savePoll(poll);
+    }
 }
