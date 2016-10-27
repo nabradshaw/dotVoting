@@ -3,30 +3,22 @@ describe("PollViewController", function() {
 
     beforeEach(module('dot-voting'));
 
+    beforeEach(inject(function($controller, $httpBackend, $http) {
+        httpBackend = $httpBackend;
+        controller = $controller('PollViewController', { $http : $http });
+    }));
+
     describe("when created", function() {
         it("requests a list of choices", function() {
-            inject(function($controller, $httpBackend, $http) {
-                httpBackend = $httpBackend;
-
-                $httpBackend.when('GET', '/api/list').respond({});
-
-                httpBackend.expectGET('/api/list');
-                controller = $controller('PollViewController', { $http : $http });
-                httpBackend.flush();
-            });
-        })
+            httpBackend.when('GET', '/api/list').respond({});
+            httpBackend.expectGET('/api/list');
+            httpBackend.flush();
+        });
 
         it("attaches list to controller", function() {
-               inject(function($controller, $httpBackend, $http) {
-                   httpBackend = $httpBackend;
-
-                   $httpBackend.when('GET', '/api/list').respond([1,2,3,4]);
-                   controller = $controller('PollViewController', { $http : $http });
-
-                   httpBackend.flush();
-                   expect(controller.list).toEqual([1,2,3,4]);
-               });
-           });
-
+           httpBackend.when('GET', '/api/list').respond([1,2,3,4]);
+           httpBackend.flush();
+           expect(controller.list).toEqual([1,2,3,4]);
+        });
     });
 });
