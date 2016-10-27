@@ -18,7 +18,7 @@ describe("PollViewController", function() {
         it("attaches list to controller", function() {
            httpBackend.when('GET', '/api/list').respond([1,2,3,4]);
            httpBackend.flush();
-           expect(controller.list).toEqual([1,2,3,4]);
+           expect(controller.poll).toEqual([1,2,3,4]);
         });
     });
 });
