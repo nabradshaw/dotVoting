@@ -21,4 +21,34 @@ describe("PollViewController", function() {
            expect(controller.poll).toEqual([1,2,3,4]);
         });
     });
+
+    describe("when voteTotal called", function(){
+        it("returns 0 when no votes cast", function(){
+            controller.poll = createMockJsonModel(0,0);
+            expect(controller.voteTotal()).toEqual(0);
+        });
+
+        it("returns the sum of the votes cast", function(){
+            controller.poll = createMockJsonModel(1,2);
+            expect(controller.voteTotal()).toEqual(3);
+        });
+    });
+
+    function createMockJsonModel(voteCount1, voteCount2){
+        return {id:'test1',
+            title:'test model',
+            pollItems:[
+                {
+                    id:'testItem1',
+                    description:'item 1',
+                    voteCount:voteCount1
+                },
+                {
+                    id:'testItem2',
+                    description:'item 2',
+                    voteCount:voteCount2
+                }
+            ]
+         };
+    }
 });

@@ -6,6 +6,11 @@ function appConfig($routeProvider, $locationProvider) {
             controller: 'PollViewController',
             controllerAs: 'ctrl'
         })
+        .when('/results', {
+            templateUrl: 'PollResults.html',
+            controller: 'PollViewController',
+            controllerAs: 'ctrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
