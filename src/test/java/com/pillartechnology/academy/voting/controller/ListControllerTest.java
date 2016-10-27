@@ -4,6 +4,7 @@ package com.pillartechnology.academy.voting.controller;
 import com.pillartechnology.academy.voting.model.PollModel;
 import com.pillartechnology.academy.voting.service.PollService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -32,5 +33,15 @@ public class ListControllerTest {
 
         PollModel result = uut.getPoll();
         assertThat(result).isSameAs(expected);
+    }
+
+    @Ignore
+    @Test
+    public void postPoll_CreatesANewPoll() {
+        PollModel expected = new PollModel();
+        when(service.getPoll());
+
+        uut.postPoll(expected);
+
     }
 }

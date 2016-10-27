@@ -10,14 +10,14 @@ import java.util.List;
 @Service
 public class PollService {
 
-    private PollModel model;
+    private PollModel poll;
     private static final String DEFAULT_ID = "1";
     private static final String DEFAULT_TITLE = "Default Poll";
 
     public PollService() {
-        model = new PollModel();
-        model.setId(DEFAULT_ID);
-        model.setTitle(DEFAULT_TITLE);
+        poll = new PollModel();
+        poll.setId(DEFAULT_ID);
+        poll.setTitle(DEFAULT_TITLE);
         List<PollItemModel> items = new ArrayList<>();
         for(int i = 1; i <= 3; i++) {
             PollItemModel item = new PollItemModel();
@@ -25,15 +25,19 @@ public class PollService {
             item.setId(String.valueOf(i));
             items.add(item);
         }
-        model.setPollItems(items);
+        poll.setPollItems(items);
     }
 
-    public PollService(PollModel model) {
-        this.model = model;
+    public PollService(PollModel poll) {
+        this.poll = poll;
     }
 
 
     public PollModel getPoll() {
-        return model;
+        return poll;
+    }
+
+    public void savePoll(PollModel poll) {
+        this.poll = poll;
     }
 }
