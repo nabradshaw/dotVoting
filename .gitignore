@@ -2,6 +2,7 @@
 .gradle/
 
 build/
+classes/
 
 *.iml
 node_modules/*
