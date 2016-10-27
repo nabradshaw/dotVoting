@@ -30,4 +30,25 @@ public class PollModel {
     public void setPollItems(List<PollItemModel> pollItems) {
         this.pollItems = pollItems;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PollModel pollModel = (PollModel) o;
+
+        if (id != null ? !id.equals(pollModel.id) : pollModel.id != null) return false;
+        if (title != null ? !title.equals(pollModel.title) : pollModel.title != null) return false;
+        return pollItems != null ? pollItems.equals(pollModel.pollItems) : pollModel.pollItems == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (pollItems != null ? pollItems.hashCode() : 0);
+        return result;
+    }
 }
