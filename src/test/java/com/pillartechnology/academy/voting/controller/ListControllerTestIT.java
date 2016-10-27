@@ -1,4 +1,4 @@
-package com.pillartechnology.academy.voting;
+package com.pillartechnology.academy.voting.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

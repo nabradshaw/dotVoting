@@ -1,6 +1,7 @@
-package com.pillartechnology.academy.voting;
+package com.pillartechnology.academy.voting.controller;
 
 
+import com.pillartechnology.academy.voting.controller.ListController;
 import org.junit.Test;
 
 import java.util.ArrayList;

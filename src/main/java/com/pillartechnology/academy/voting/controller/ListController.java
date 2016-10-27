@@ -1,4 +1,4 @@
-package com.pillartechnology.academy.voting;
+package com.pillartechnology.academy.voting.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
