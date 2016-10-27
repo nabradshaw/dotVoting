@@ -26,7 +26,7 @@ public class ListController {
 
         PollItemModel pollItem2 = new PollItemModel();
         pollItem2.setId("Item2");
-        pollItem2.setDescription("The first item to vote on");
+        pollItem2.setDescription("The second item to vote on");
 
         List<PollItemModel> pollItems = new ArrayList<PollItemModel>();
         pollItems.add(pollItem1);

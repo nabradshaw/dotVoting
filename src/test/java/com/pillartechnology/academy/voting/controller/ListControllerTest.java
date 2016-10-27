@@ -29,7 +29,7 @@ public class ListControllerTest {
 
         PollItemModel expectedItem2 = new PollItemModel();
         expectedItem2.setId("Item2");
-        expectedItem2.setDescription("The first item to vote on");
+        expectedItem2.setDescription("The second item to vote on");
 
         List<PollItemModel> expectedItems = new ArrayList<PollItemModel>();
         expectedItems.add(expectedItem1);
