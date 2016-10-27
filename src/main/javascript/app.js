@@ -2,7 +2,7 @@ function appConfig($routeProvider, $locationProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl: 'html/PollView.html',
+            templateUrl: 'PollView.html',
             controller: 'PollViewController',
             controllerAs: 'ctrl'
         })
@@ -12,4 +12,4 @@ function appConfig($routeProvider, $locationProvider) {
 
 }
 
-angular.module('dot-voting', ['ngRoute']).config(appConfig);
+angular.module('dot-voting', ['ngRoute', 'views']).config(appConfig);
