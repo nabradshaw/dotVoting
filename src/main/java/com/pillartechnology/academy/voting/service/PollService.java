@@ -18,6 +18,7 @@ public class PollService {
         for(int i = 1; i <= 3; i++) {
             PollItemModel item = new PollItemModel();
             item.setDescription(String.valueOf(i));
+            item.setId(String.valueOf(i));
             items.add(item);
         }
         model.setPollItems(items);

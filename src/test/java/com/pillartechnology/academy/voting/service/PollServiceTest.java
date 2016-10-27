@@ -38,4 +38,16 @@ public class PollServiceTest {
             assertThat(pollItems.get(i).getDescription()).isEqualTo(String.valueOf(i + 1));
         }
     }
+
+    @Test
+    public void whenNoPollProvided_CreatesADefaultPoll_WithThreeItems_WithIds() {
+        PollService pollService = new PollService();
+        PollModel poll = pollService.get();
+        List<PollItemModel> pollItems = poll.getPollItems();
+
+        assertThat(pollItems).hasSize(3);
+        for(int i = 0; i < pollItems.size(); i++) {
+            assertThat(pollItems.get(i).getId()).isEqualTo(String.valueOf(i + 1));
+        }
+    }
 }
