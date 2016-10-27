@@ -1,5 +1,8 @@
 package com.pillartechnology.academy.voting.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pillartechnology.academy.voting.model.PollItemModel;
+import com.pillartechnology.academy.voting.model.PollModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,12 +33,30 @@ public class ListControllerTestIT {
     }
 
     @Test
-    public void testListControllerEndpointReturnsListOfStrings() throws Exception {
+    public void testListControllerEndpointReturnsPollModel() throws Exception {
         MvcResult result = mockMvc.perform(get("/api/list")).andReturn();
-        String resultContent = result.getResponse().getContentAsString();
 
-        if (!(resultContent.startsWith("[\"") && resultContent.endsWith("\"]") || resultContent.equals("[]"))) {
-            fail("A list was not returned by the list endpoint");
-        }
+        ObjectMapper mapper = new ObjectMapper();
+        PollModel model = mapper.readValue(result.getResponse().getContentAsByteArray(), PollModel.class);
+
+        PollModel expected = new PollModel();
+        expected.setId("newId1");
+        expected.setTitle("New Test Poll");
+
+        PollItemModel expectedItem1 = new PollItemModel();
+        expectedItem1.setId("Item1");
+        expectedItem1.setDescription("The first item to vote on");
+
+        PollItemModel expectedItem2 = new PollItemModel();
+        expectedItem2.setId("Item2");
+        expectedItem2.setDescription("The second item to vote on");
+
+        List<PollItemModel> expectedItems = new ArrayList<PollItemModel>();
+        expectedItems.add(expectedItem1);
+        expectedItems.add(expectedItem2);
+
+        expected.setPollItems(expectedItems);
+
+        assertEquals(expected, model);
     }
 }
