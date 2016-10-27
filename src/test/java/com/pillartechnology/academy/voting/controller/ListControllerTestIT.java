@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -37,5 +38,10 @@ public class ListControllerTestIT {
 
         PollModel poll = mapper.readValue(resultContent, PollModel.class);
         assertThat(poll).isNotNull();
+    }
+
+    @Test
+    public void savePoll_ReturnsOkStatus() throws Exception {
+        mockMvc.perform(post("/api/list")).andExpect(status().isOk());
     }
 }
