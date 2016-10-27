@@ -9,8 +9,8 @@ public class PollItemModel {
         return voteCount;
     }
 
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
+    public synchronized void alterVoteCount(int amount) {
+        this.voteCount += amount;
     }
 
     public String getDescription() {
