@@ -15,4 +15,13 @@ public class PollServiceTest {
         assertThat(actual).isSameAs(expected);
     }
 
+
+    @Test
+    public void whenNoPollProvided_CreatesADefaultPoll_WithATitle() {
+        PollService pollService = new PollService();
+        PollModel poll = pollService.get();
+
+        assertThat(poll.getTitle()).isEqualTo("Default Poll");
+    }
+
 }
