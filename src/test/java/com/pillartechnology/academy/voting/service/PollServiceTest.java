@@ -18,6 +18,13 @@ public class PollServiceTest {
         assertThat(actual).isSameAs(expected);
     }
 
+    @Test
+    public void whenNoPollProvided_CreatesADefaultPoll_PollHasAnId() {
+        PollService pollService = new PollService();
+        PollModel poll = pollService.get();
+
+        assertThat(poll.getId()).isEqualTo("1");
+    }
 
     @Test
     public void whenNoPollProvided_CreatesADefaultPoll_WithATitle() {
@@ -50,4 +57,5 @@ public class PollServiceTest {
             assertThat(pollItems.get(i).getId()).isEqualTo(String.valueOf(i + 1));
         }
     }
+
 }
