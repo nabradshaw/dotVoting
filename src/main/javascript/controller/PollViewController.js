@@ -1,5 +1,9 @@
 function PollViewController($http) {
-    $http.get('/api/list', {});
+    var self = this;
+
+    $http.get('/api/list', {}).then(function(response) {
+        self.list = response.data;
+    });
 }
 
 angular

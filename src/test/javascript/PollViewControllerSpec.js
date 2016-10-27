@@ -16,5 +16,17 @@ describe("PollViewController", function() {
             });
         })
 
+        it("attaches list to controller", function() {
+               inject(function($controller, $httpBackend, $http) {
+                   httpBackend = $httpBackend;
+
+                   $httpBackend.when('GET', '/api/list').respond([1,2,3,4]);
+                   controller = $controller('PollViewController', { $http : $http });
+
+                   httpBackend.flush();
+                   expect(controller.list).toEqual([1,2,3,4]);
+               });
+           });
+
     });
 });
