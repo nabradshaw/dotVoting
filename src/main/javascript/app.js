@@ -1,13 +1,13 @@
 function appConfig($routeProvider, $locationProvider) {
 
     $routeProvider
-        .when('/helloworld', {
-            templateUrl: 'html/HelloWorld.html',
-            controller: 'HelloWorldCtrl',
+        .when('/', {
+            templateUrl: 'html/PollView.html',
+            controller: 'PollViewController',
             controllerAs: 'ctrl'
         })
         .otherwise({
-            redirectTo: '/helloworld'
+            redirectTo: '/'
         });
 
 }
