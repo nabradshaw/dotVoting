@@ -1,15 +1,15 @@
 function appConfig($routeProvider, $locationProvider) {
 
     $routeProvider
-        .when('/helloworld', {
-            templateUrl: 'html/HelloWorld.html',
-            controller: 'HelloWorldCtrl',
+        .when('/', {
+            templateUrl: 'PollView.html',
+            controller: 'PollViewController',
             controllerAs: 'ctrl'
         })
         .otherwise({
-            redirectTo: '/helloworld'
+            redirectTo: '/'
         });
 
 }
 
-angular.module('dot-voting', ['ngRoute']).config(appConfig);
+angular.module('dot-voting', ['ngRoute', 'views']).config(appConfig);

@@ -34,7 +34,7 @@ gulp.task('build', ['copy-dependencies'],function() {
 
     return gulp.src('src/main/html/**/*.html')
         .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
-        .pipe(html2js({ outputModuleName: PROJECT_NAME, base: 'src/main' }))
+        .pipe(html2js({ outputModuleName: 'views', base: 'src/main/html' }))
         .pipe(concat('views.js'))
 
         .pipe(addsrc(['src/main/javascript/app.js', 'src/main/javascript/**/*.js']))
