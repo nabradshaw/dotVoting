@@ -23,10 +23,12 @@ public class ListController {
         PollItemModel pollItem1 = new PollItemModel();
         pollItem1.setId("Item1");
         pollItem1.setDescription("The first item to vote on");
+        pollItem1.setVoteCount(2);
 
         PollItemModel pollItem2 = new PollItemModel();
         pollItem2.setId("Item2");
         pollItem2.setDescription("The second item to vote on");
+        pollItem2.setVoteCount(123);
 
         List<PollItemModel> pollItems = new ArrayList<PollItemModel>();
         pollItems.add(pollItem1);
