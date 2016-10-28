@@ -28,7 +28,12 @@ public class ListController {
     @RequestMapping(method = POST)
     public void savePoll(@RequestBody PollModel poll) {
         poll.setId("1");
-
+        List<PollItemModel> items = poll.getPollItems();
+        if(items != null) {
+            for(int i = 0; i < items.size(); i++) {
+                items.get(i).setId(String.valueOf(i));
+            }
+        }
 
         pollService.savePoll(poll);
     }

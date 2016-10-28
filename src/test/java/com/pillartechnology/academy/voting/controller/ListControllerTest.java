@@ -62,5 +62,21 @@ public class ListControllerTest {
         assertThat(pollCaptor.getValue().getId()).isEqualTo("1");
     }
 
+    @Test
+    public void savePoll_SetsTheIdsForThePollItems() {
+        PollModel expected = new PollModel();
+        expected.setPollItems(Arrays.asList(new PollItemModel(), new PollItemModel(), new PollItemModel()));
+        ArgumentCaptor<PollModel> pollCaptor = ArgumentCaptor.forClass(PollModel.class);
+
+        uut.savePoll(expected);
+
+        verify(service).savePoll(pollCaptor.capture());
+
+        List<PollItemModel> result = pollCaptor.getValue().getPollItems();
+        for(int i = 0; i < result.size(); i++) {
+            assertThat(result.get(i).getId()).isEqualTo(String.valueOf(i));
+        }
+    }
+
 
 }
