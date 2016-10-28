@@ -3,6 +3,7 @@ package com.pillartechnology.academy.voting.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pillartechnology.academy.voting.model.PollItemModel;
 import com.pillartechnology.academy.voting.model.PollModel;
+import com.pillartechnology.academy.voting.service.PollService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -27,36 +30,36 @@ public class ListControllerTestIT {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private PollService pollService;
+
+    private ObjectMapper mapper = new ObjectMapper();
+
     @Test
-    public void testListControllerEndpointReturnsOkStatus() throws Exception {
+    public void getPoll_ReturnsOkStatus() throws Exception {
         mockMvc.perform(get("/api/list")).andExpect(status().isOk());
     }
 
     @Test
-    public void testListControllerEndpointReturnsPollModel() throws Exception {
+    public void getPoll_ReturnsAPoll() throws Exception {
         MvcResult result = mockMvc.perform(get("/api/list")).andReturn();
 
-        ObjectMapper mapper = new ObjectMapper();
-        PollModel model = mapper.readValue(result.getResponse().getContentAsByteArray(), PollModel.class);
+        PollModel expected = pollService.getPoll();
+        PollModel actual = mapper.readValue(result.getResponse().getContentAsByteArray(), PollModel.class);
 
-        PollModel expected = new PollModel();
-        expected.setId("newId1");
-        expected.setTitle("New Test Poll");
+        assertThat(actual).isEqualTo(expected);
+    }
 
-        PollItemModel expectedItem1 = new PollItemModel();
-        expectedItem1.setId("Item1");
-        expectedItem1.setDescription("The first item to vote on");
+    @Test
+    public void savePoll_SavesThePoll() throws Exception {
+        PollModel poll = new PollModel();
+        poll.setTitle("My Title");
 
-        PollItemModel expectedItem2 = new PollItemModel();
-        expectedItem2.setId("Item2");
-        expectedItem2.setDescription("The second item to vote on");
+        String pollToPost = mapper.writeValueAsString(poll);
+        mockMvc.perform(post("/api/list")
+                .contentType(APPLICATION_JSON)
+                .content(pollToPost))
+                .andExpect(status().isOk());
 
-        List<PollItemModel> expectedItems = new ArrayList<PollItemModel>();
-        expectedItems.add(expectedItem1);
-        expectedItems.add(expectedItem2);
-
-        expected.setPollItems(expectedItems);
-
-        assertEquals(expected, model);
     }
 }
