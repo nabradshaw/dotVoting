@@ -6,6 +6,12 @@ function PollCreateController($http) {
         $http.post('/api/list', { title: this.title, pollItems: this.pollItems });
     }
 
+    this.addItem = function() {
+        this.pollItems.push({
+            description: ""
+        });
+    }
+
 }
 
 angular

@@ -25,4 +25,15 @@ describe("PollCreateController", function() {
 
 
     });
+
+    describe('when new item button is clicked', function() {
+        it('should add a new item text area', function() {
+            var pollItems = []
+
+            controller.addItem();
+
+            expect(controller.pollItems.length).toEqual(1);
+            expect(controller.pollItems[0].description).toEqual("");
+        })
+    });
 });
