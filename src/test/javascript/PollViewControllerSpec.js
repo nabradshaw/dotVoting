@@ -66,6 +66,22 @@ describe("PollViewController", function() {
         });
     });
 
+    describe("when calculateRemainingVotes is called", function() {
+        it("subtracts votes cast from max votes", function() {
+            controller.poll = createMockJsonModel(1, 2);
+            controller.calculateRemainingVotes();
+
+            expect(controller.remainingVotes).toEqual(0);
+        });
+
+        it("sets error flag for any negative values", function() {
+            controller.poll = createMockJsonModel(-1, 2);
+            controller.calculateRemainingVotes();
+
+            expect(controller.hasNegativeVoteCount).toBe(true);
+        });
+    });
+
     function createMockJsonModel(voteCount1, voteCount2){
         return {id:'test1',
             title:'test model',

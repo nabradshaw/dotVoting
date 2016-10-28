@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-10 col-md-offset-1">
             <h1 class="text-center">{{ctrl.poll.title}}</h1>
-            <form novalidate ng-submit="ctrl.doSubmit()">
+            <form name="votingForm" novalidate ng-submit="ctrl.doSubmit()">
                 <div class="well" ng-repeat="item in ctrl.poll.pollItems">
                     <div class="row">
                         <div class="col-xs-8">
@@ -11,8 +11,9 @@
                         <div class="col-xs-4">
                             <p>
                                 <label for="voteCountSpinner_{{item.id}}" class="col-xs-12">Vote Count</label>
-                                <input type="number" id="voteCountSpinner_{{item.id}}" ng-model="item.voteCount"
-                                       min="0" class="col-xs-12"/>
+                                <input type="number" name="voteCountSpinner_{{item.id}}" id="voteCountSpinner_{{item.id}}"
+                                       ng-model="item.voteCount" class="col-xs-12"
+                                       ng-change="ctrl.calculateRemainingVotes()"/>
                             </p>
                         </div>
                     </div>
@@ -22,15 +23,22 @@
                         <h3 class="panel-title">Votes Remaining</h3>
                     </div>
                     <div class="panel-body">
-                        <p class="text-center">
-                            <span class="col-xs-4 glyphicon glyphicon-ice-lolly"></span>
-                            <span class="col-xs-4 glyphicon glyphicon-ice-lolly"></span>
-                            <span class="col-xs-4 glyphicon glyphicon-ice-lolly"></span>
-                        </p>
+                        {{ctrl.remainingVotes}}
                     </div>
                 </div>
+                <div class="panel panel-danger" ng-show="ctrl.remainingVotes < 0 || ctrl.hasNegativeVoteCount">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">ERROR</h3>
+                    </div>
+                    <div class="panel-body">
+                        <span ng-show="ctrl.remainingVotes < 0">You have exceeded your maximum votes!</span>
+                        <span ng-show="ctrl.hasNegativeVoteCount">No vote count can be negative.</span>
+                    </div>
+
+                </div>
                 <p>
-                    <button class="btn btn-primary btn-lg center-block">Submit</button>
+                    <button class="btn btn-primary btn-lg center-block"
+                            ng-disabled="ctrl.remainingVotes < 0 || ctrl.hasNegativeVoteCount">Submit</button>
                 </p>
             </form>
         </div>
