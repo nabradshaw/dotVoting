@@ -67,4 +67,22 @@ public class PollServiceTest {
         }
     }
 
+    @Test
+    public void whenPollItemIdIsPresentInPollItems_ReturnsPollItem(){
+        PollService pollService = new PollService();
+        PollItemModel pollItemModel = pollService.getPollItemById("1");
+        PollItemModel expected = new PollItemModel();
+        expected.setId("1");
+        expected.setDescription("1");
+
+        assertThat(pollItemModel).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenPollItemIdIsNotPresentInPollItems_ReturnsNull(){
+        PollService pollService = new PollService();
+        PollItemModel pollItemModel = pollService.getPollItemById("jabberwocky");
+        assertThat(pollItemModel).isNull();
+    }
+
 }
