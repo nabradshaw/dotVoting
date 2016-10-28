@@ -28,12 +28,19 @@ describe("PollCreateController", function() {
 
     describe('when new item button is clicked', function() {
         it('should add a new item text area', function() {
-            var pollItems = []
-
+            controller.pollItems = [];
             controller.addItem();
 
             expect(controller.pollItems.length).toEqual(1);
             expect(controller.pollItems[0].description).toEqual("");
         })
+    });
+
+    describe('when loading the page', function() {
+        it('should default with two empty poll items', function() {
+            expect(controller.pollItems.length).toEqual(2);
+            expect(controller.pollItems[0].description).toEqual("");
+            expect(controller.pollItems[1].description).toEqual("");
+        });
     });
 });
