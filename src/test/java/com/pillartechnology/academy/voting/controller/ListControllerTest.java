@@ -78,5 +78,15 @@ public class ListControllerTest {
         }
     }
 
+    @Test
+    public void getPoll_returnsPollForProvidedID(){
+        PollModel expected = new PollModel();
+        expected.setId("Id1");
+
+        when(service.getPoll(expected.getId())).thenReturn(expected);
+
+        PollModel result = uut.getPoll("Id1");
+        assertThat(result).isSameAs(expected);
+    }
 
 }
