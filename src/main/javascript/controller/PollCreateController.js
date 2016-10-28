@@ -21,7 +21,7 @@ function PollCreateController($http) {
     }
 
     this.canDelete = function() {
-        return true;
+        return this.pollItems.length > 2;
     }
 
 }
