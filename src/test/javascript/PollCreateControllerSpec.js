@@ -27,10 +27,10 @@ describe("PollCreateController", function() {
         it('should redirect to the newly created poll', function() {
             controller.createPoll();
 
-            httpBackend.when('POST', '/api/poll').respond({});
+            httpBackend.when('POST', '/api/poll').respond({id: 1});
             httpBackend.flush();
 
-            expect(location.url).toHaveBeenCalledWith('/');
+            expect(location.url).toHaveBeenCalledWith('/poll/1');
         });
 
 
