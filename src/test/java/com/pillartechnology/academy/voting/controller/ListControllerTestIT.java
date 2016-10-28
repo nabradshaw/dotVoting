@@ -59,4 +59,20 @@ public class ListControllerTestIT {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    public void getPoll_RequestUniquePoll() throws Exception {
+        PollModel poll1 = new PollModel();
+        PollModel poll2 = new PollModel();
+        poll1.setTitle("First Title");
+        poll2.setTitle("Second Title");
+        
+        PollModel firstSavedPoll = pollService.createPoll(poll1);
+        pollService.createPoll(poll2);
+        
+        MvcResult result = mockMvc.perform(get("/api/poll/" + firstSavedPoll.getId())).andReturn();
+        PollModel actual = mapper.readValue(result.getResponse().getContentAsByteArray(), PollModel.class);
+        
+        assertThat(actual).isEqualTo(firstSavedPoll);
+    }    
 }
