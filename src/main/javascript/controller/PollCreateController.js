@@ -1,4 +1,4 @@
-function PollCreateController($http) {
+function PollCreateController($http, $location) {
     this.title = "";
     this.pollItems = [{
         description: ""
@@ -7,7 +7,9 @@ function PollCreateController($http) {
     }];
 
     this.createPoll = function() {
-        $http.post('/api/list', { title: this.title, pollItems: this.pollItems });
+        $http.post('/api/list', { title: this.title, pollItems: this.pollItems }).then(function() {
+            $location.url('/');
+        });
     }
 
     this.addItem = function() {

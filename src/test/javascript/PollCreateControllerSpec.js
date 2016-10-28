@@ -1,11 +1,12 @@
 describe("PollCreateController", function() {
-    var controller, httpBackend;
+    var controller, location, httpBackend;
 
     beforeEach(module('dot-voting'));
 
     beforeEach(inject(function($controller, $httpBackend, $http) {
+       location = jasmine.createSpyObj('location', ['url']);
        httpBackend = $httpBackend;
-       controller = $controller('PollCreateController', { $http : $http });
+       controller = $controller('PollCreateController', { $http : $http, $location: location });
     }));
 
     describe("when create poll is clicked", function() {
@@ -21,6 +22,15 @@ describe("PollCreateController", function() {
             httpBackend.when('POST', '/api/list').respond({});
             httpBackend.expectPOST('/api/list', { title: expectedTitle, pollItems: expectedItems });
             httpBackend.flush();
+        });
+
+        it('should redirect to the newly created poll', function() {
+            controller.createPoll();
+
+            httpBackend.when('POST', '/api/list').respond({});
+            httpBackend.flush();
+
+            expect(location.url).toHaveBeenCalledWith('/');
         });
 
 
