@@ -51,6 +51,11 @@ public class ListControllerTestIT {
     }
 
     @Test
+    public void getPoll_ById_ReturnsOkStatus() throws Exception {
+        mockMvc.perform(get("/api/poll/1")).andExpect(status().isOk());
+    }
+
+    @Test
     public void savePoll_SavesThePoll() throws Exception {
         PollModel poll = new PollModel();
         poll.setTitle("My Title");
