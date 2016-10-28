@@ -9,6 +9,7 @@ function appConfig($routeProvider, $locationProvider) {
         .when('/results', {
             templateUrl: 'PollResults.html',
             controller: 'PollViewController',
+            controllerAs: 'ctrl'
         })
         .when('/create', {
             templateUrl: 'PollCreate.html',

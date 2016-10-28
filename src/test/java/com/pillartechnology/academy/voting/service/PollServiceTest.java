@@ -60,4 +60,28 @@ public class PollServiceTest {
             assertThat(items.get(i).getId()).isEqualTo(String.valueOf(i));
         }
     }
+
+    @Test
+    public void getPollItemById_whenPollItemIdIsPresentInPollItems_ReturnsPollItem(){
+        PollService pollService = new PollService();
+
+        PollItemModel expected = new PollItemModel();
+        expected.setId("1");
+        expected.setDescription("1");
+        PollModel poll = new PollModel();
+        poll.setPollItems(Arrays.asList(expected));
+        pollService.createPoll(poll);
+
+        PollItemModel actual = pollService.getPollItemById(expected.getId());
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void getPollItemById_whenPollItemIdIsNotPresentInPollItems_ReturnsNull(){
+        PollService pollService = new PollService();
+        PollItemModel pollItemModel = pollService.getPollItemById("jabberwocky");
+        assertThat(pollItemModel).isNull();
+    }
+
 }

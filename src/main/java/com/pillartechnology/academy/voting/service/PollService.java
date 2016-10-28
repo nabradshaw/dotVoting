@@ -5,6 +5,7 @@ import com.pillartechnology.academy.voting.model.PollModel;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PollService {
@@ -42,4 +43,19 @@ public class PollService {
 
         return poll;
     }
+
+    public PollItemModel getPollItemById(String id){
+
+        try {
+            return polls.values().stream()
+                .map(p -> p.getPollItems())
+                .flatMap(i -> i.stream())
+                .filter(i -> id.equals(i.getId()))
+                .findFirst()
+                .get();
+        } catch(NoSuchElementException e) {
+            return null;
+        }
+    }
+
 }
