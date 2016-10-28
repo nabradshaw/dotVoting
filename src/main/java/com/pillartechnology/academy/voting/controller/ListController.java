@@ -23,7 +23,7 @@ public class ListController {
     }
 
     @RequestMapping(method = POST, value = "/api/poll")
-    public void savePoll(@RequestBody PollModel poll) {
-        pollService.createPoll(poll);
+    public PollModel savePoll(@RequestBody PollModel poll) {
+        return pollService.createPoll(poll);
     }
 }

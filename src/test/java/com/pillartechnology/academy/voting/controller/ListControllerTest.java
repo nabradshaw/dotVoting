@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,6 +37,18 @@ public class ListControllerTest {
 
         verify(service).createPoll(pollCaptor.capture());
         assertThat(pollCaptor.getValue()).isSameAs(expected);
+    }
+
+
+    @Test
+    public void savePoll_ReturnsTheSavedPoll() {
+        PollModel expected = new PollModel();
+
+        when(service.createPoll(any())).thenReturn(expected);
+
+        PollModel actual = uut.savePoll(expected);
+
+        assertThat(actual).isSameAs(expected);
     }
 
     @Test
