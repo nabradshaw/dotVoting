@@ -1,6 +1,7 @@
 package com.pillartechnology.academy.voting.controller;
 
 
+import com.pillartechnology.academy.voting.model.PollItemModel;
 import com.pillartechnology.academy.voting.model.PollModel;
 import com.pillartechnology.academy.voting.service.PollService;
 import org.junit.Before;
@@ -9,6 +10,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -46,4 +50,17 @@ public class ListControllerTest {
         verify(service).savePoll(pollCaptor.capture());
         assertThat(pollCaptor.getValue()).isSameAs(expected);
     }
+
+    @Test
+    public void savePoll_SetsTheIdForThePoll() {
+        PollModel expected = new PollModel();
+        ArgumentCaptor<PollModel> pollCaptor = ArgumentCaptor.forClass(PollModel.class);
+
+        uut.savePoll(expected);
+
+        verify(service).savePoll(pollCaptor.capture());
+        assertThat(pollCaptor.getValue().getId()).isEqualTo("1");
+    }
+
+
 }
