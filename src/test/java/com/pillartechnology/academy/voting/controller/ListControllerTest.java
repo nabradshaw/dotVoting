@@ -43,7 +43,7 @@ public class ListControllerTest {
 
         uut.savePoll(expected);
 
-        verify(service).savePoll(pollCaptor.capture());
+        verify(service).createPoll(pollCaptor.capture());
         assertThat(pollCaptor.getValue()).isSameAs(expected);
     }
 

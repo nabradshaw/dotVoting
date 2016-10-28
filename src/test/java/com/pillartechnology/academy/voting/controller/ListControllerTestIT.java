@@ -71,7 +71,7 @@ public class ListControllerTestIT {
         poll.setTitle("My Title");
 
         String pollToPost = mapper.writeValueAsString(poll);
-        mockMvc.perform(post("/api/list")
+        mockMvc.perform(post("/api/poll")
                 .contentType(APPLICATION_JSON)
                 .content(pollToPost))
                 .andExpect(status().isOk());
