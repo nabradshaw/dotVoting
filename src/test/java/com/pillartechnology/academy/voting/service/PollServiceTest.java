@@ -78,4 +78,16 @@ public class PollServiceTest {
 
         assertThat(actual).isSameAs(poll);
     }
+
+    @Test
+    public void createPoll_AddsNewPollToTheAvailablePolls() {
+        PollModel poll = new PollModel();
+        PollService pollService = new PollService();
+
+        PollModel created = pollService.createPoll(poll);
+        PollModel result = pollService.getPoll(created.getId());
+
+        assertThat(created.getId()).isNotNull().isNotEmpty();
+        assertThat(result).isSameAs(poll);
+    }
 }

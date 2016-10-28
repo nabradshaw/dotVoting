@@ -50,4 +50,11 @@ public class PollService {
     public PollModel getPoll(String id) {
         return polls.get(id);
     }
+
+    public PollModel createPoll(PollModel poll) {
+        String id = String.valueOf(new Random().nextInt());
+        poll.setId(id);
+        this.polls.put(id, poll);
+        return poll;
+    }
 }
