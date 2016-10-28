@@ -16,7 +16,7 @@ function PollViewController($http, $location, $routeParams) {
 
     self.doSubmit = function() {
         $http.post('/api/vote', self.poll).then(function(response){
-            $location.url('/results');
+            $location.url('/results/' + $routeParams.id);
         });
     }
 }

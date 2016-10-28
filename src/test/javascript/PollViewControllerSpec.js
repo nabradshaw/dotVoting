@@ -63,7 +63,7 @@ describe("PollViewController", function() {
 
             controller.doSubmit();
             httpBackend.flush();
-            expect(location.url).toHaveBeenCalledWith("/results");
+            expect(location.url).toHaveBeenCalledWith("/results/" + routeParams.id);
         });
     });
 

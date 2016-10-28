@@ -6,7 +6,7 @@ function appConfig($routeProvider, $locationProvider) {
             controller: 'PollViewController',
             controllerAs: 'ctrl'
         })
-        .when('/results', {
+        .when('/results/:id', {
             templateUrl: 'PollResults.html',
             controller: 'PollViewController',
             controllerAs: 'ctrl'
