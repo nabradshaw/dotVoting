@@ -15,6 +15,9 @@
                 </div>
                 <div ng-repeat="item in ctrl.pollItems" class="col-sm-12">
                     <div class="well">
+                        <div ng-show="ctrl.canDelete()" class="pull-right">
+                            <span ng-click="ctrl.deleteItem($index)" class="glyphicon glyphicon-remove"></span>
+                        </div>
                         Item #{{ $index + 1 }}
                         <textarea class="form-control" ng-model="item.description"></textarea>
                     </div>
