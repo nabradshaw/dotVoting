@@ -19,6 +19,15 @@ public class PollServiceTest {
     }
 
     @Test
+    public void savePoll_OverwritesTheCurrentPollWithNewPoll() {
+        PollModel expected = new PollModel();
+        PollService pollService = new PollService();
+
+        pollService.savePoll(expected);
+        assertThat(pollService.getPoll()).isSameAs(expected);
+    }
+
+    @Test
     public void whenNoPollProvided_CreatesADefaultPoll_PollHasAnId() {
         PollService pollService = new PollService();
         PollModel poll = pollService.getPoll();

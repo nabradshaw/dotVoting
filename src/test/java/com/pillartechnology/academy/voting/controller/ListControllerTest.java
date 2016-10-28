@@ -1,42 +1,82 @@
 package com.pillartechnology.academy.voting.controller;
 
 
-import com.pillartechnology.academy.voting.controller.ListController;
 import com.pillartechnology.academy.voting.model.PollItemModel;
 import com.pillartechnology.academy.voting.model.PollModel;
+import com.pillartechnology.academy.voting.service.PollService;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class ListControllerTest {
+
+    @InjectMocks
     ListController uut;
 
-    @Test
-    public void ensureEndpointReturnsAPollModelWhenCalled() {
-        uut = new ListController();
+    @Mock
+    private PollService service;
 
-        PollModel expected = new PollModel();
-        expected.setId("newId1");
-        expected.setTitle("New Test Poll");
-
-        PollItemModel expectedItem1 = new PollItemModel();
-        expectedItem1.setId("Item1");
-        expectedItem1.setDescription("The first item to vote on");
-
-        PollItemModel expectedItem2 = new PollItemModel();
-        expectedItem2.setId("Item2");
-        expectedItem2.setDescription("The second item to vote on");
-
-        List<PollItemModel> expectedItems = new ArrayList<PollItemModel>();
-        expectedItems.add(expectedItem1);
-        expectedItems.add(expectedItem2);
-
-        expected.setPollItems(expectedItems);
-
-        assertEquals(expected, uut.getVotingList());
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
+
+    @Test
+    public void getPoll_ReturnsCorrectPoll() {
+        PollModel expected = new PollModel();
+        when(service.getPoll()).thenReturn(expected);
+
+        PollModel result = uut.getPoll();
+        assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    public void savePoll_SavesTheCorrectPoll() {
+        PollModel expected = new PollModel();
+        ArgumentCaptor<PollModel> pollCaptor = ArgumentCaptor.forClass(PollModel.class);
+
+        uut.savePoll(expected);
+
+        verify(service).savePoll(pollCaptor.capture());
+        assertThat(pollCaptor.getValue()).isSameAs(expected);
+    }
+
+    @Test
+    public void savePoll_SetsTheIdForThePoll() {
+        PollModel expected = new PollModel();
+        ArgumentCaptor<PollModel> pollCaptor = ArgumentCaptor.forClass(PollModel.class);
+
+        uut.savePoll(expected);
+
+        verify(service).savePoll(pollCaptor.capture());
+        assertThat(pollCaptor.getValue().getId()).isEqualTo("1");
+    }
+
+    @Test
+    public void savePoll_SetsTheIdsForThePollItems() {
+        PollModel expected = new PollModel();
+        expected.setPollItems(Arrays.asList(new PollItemModel(), new PollItemModel(), new PollItemModel()));
+        ArgumentCaptor<PollModel> pollCaptor = ArgumentCaptor.forClass(PollModel.class);
+
+        uut.savePoll(expected);
+
+        verify(service).savePoll(pollCaptor.capture());
+
+        List<PollItemModel> result = pollCaptor.getValue().getPollItems();
+        for(int i = 0; i < result.size(); i++) {
+            assertThat(result.get(i).getId()).isEqualTo(String.valueOf(i));
+        }
+    }
+
+
 }
