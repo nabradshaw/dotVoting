@@ -26,16 +26,7 @@ public class ListControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-
-    @Test
-    public void getPoll_ReturnsCorrectPoll() {
-        PollModel expected = new PollModel();
-        when(service.getPoll()).thenReturn(expected);
-
-        PollModel result = uut.getPoll();
-        assertThat(result).isSameAs(expected);
-    }
-
+    
     @Test
     public void savePoll_SavesTheCorrectPoll() {
         PollModel expected = new PollModel();

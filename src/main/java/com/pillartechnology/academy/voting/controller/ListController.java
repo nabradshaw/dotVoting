@@ -17,11 +17,6 @@ public class ListController {
     @Autowired
     PollService pollService;
 
-    @RequestMapping(method = GET, value = "/api/list")
-    public PollModel getPoll() {
-        return pollService.getPoll();
-    }
-
     @RequestMapping(method = GET, value = "/api/poll/{id}")
     public PollModel getPoll(@PathVariable("id") String id) {
         return pollService.getPoll(id);
