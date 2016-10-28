@@ -13,27 +13,14 @@
                         <input ng-model="ctrl.title" type="text" class="form-control">
                     </div>
                 </div>
-                <div class="col-sm-12">
-
+                <div ng-repeat="item in ctrl.pollItems" class="col-sm-12">
                     <div class="well">
-                        Item #1
-                        <textarea class="form-control"></textarea>
+                        Item #{{ $index + 1 }}
+                        <textarea class="form-control" ng-model="item.description"></textarea>
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="well">
-                        Item #2
-                        <textarea class="form-control"></textarea>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="well">
-                        Item #3
-                        <textarea class="form-control"></textarea>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <button class="btn btn-default btn-lg pull-right">Add item <span class="glyphicon glyphicon-plus"></span></button>
+                    <button ng-click="ctrl.addItem()" class="btn btn-default btn-lg pull-right">Add item <span class="glyphicon glyphicon-plus"></span></button>
                     <div class="clearfix"></div>
                     <br>
                     <br>
