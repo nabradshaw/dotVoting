@@ -3,7 +3,6 @@ function PollViewController($http, $location) {
     self.voteTotal = 0;
     self.maxVotes = 3;
     self.remainingVotes = self.maxVotes;
-    self.hasNegativeVoteCount = false;
 
     self.getPoll = function() {
         $http.get('/api/list', {}).then(function(response) {
@@ -26,14 +25,11 @@ function PollViewController($http, $location) {
 
     self.calculateRemainingVotes = function() {
         var votesCast = 0;
-        self.hasNegativeVoteCount = false;
 
         angular.forEach(self.poll.pollItems, function(value, index) {
-            if (value.voteCount < 0) {
-                self.hasNegativeVoteCount = true;
-            }
             votesCast += value.voteCount;
         });
+
         if (votesCast <= 0) {
             self.remainingVotes = self.maxVotes
         } else {

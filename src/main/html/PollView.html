@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-success">
+                <div class="panel panel-success" ng-show="ctrl.remainingVotes >= 0 && votingForm.$valid">
                     <div class="panel-heading">
                         <h3 class="panel-title">Votes Remaining</h3>
                     </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="panel-body">
                         <span ng-show="ctrl.remainingVotes < 0">You have exceeded your maximum votes!</span>
-                        <span ng-show="ctrl.hasNegativeVoteCount">No vote count can be negative.</span>
+                        <span ng-show="votingForm.$invalid">No vote count can be negative.</span>
                     </div>
 
                 </div>

@@ -73,13 +73,6 @@ describe("PollViewController", function() {
 
             expect(controller.remainingVotes).toEqual(0);
         });
-
-        it("sets error flag for any negative values", function() {
-            controller.poll = createMockJsonModel(-1, 2);
-            controller.calculateRemainingVotes();
-
-            expect(controller.hasNegativeVoteCount).toBe(true);
-        });
     });
 
     function createMockJsonModel(voteCount1, voteCount2){
