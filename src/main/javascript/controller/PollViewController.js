@@ -1,20 +1,20 @@
 function PollViewController($http) {
     var self = this;
+    self.voteTotal = 0;
 
-    $http.get('/api/list', {}).then(function(response) {
-        self.poll = response.data;
-    });
-
-    self.doSubmit = function() {
-        //do the thing
-        alert("I voted!");
+    self.getPoll = function() {
+        $http.get('/api/list', {}).then(function(response) {
+            self.poll = response.data;
+            if (angular.isDefined(self.poll.pollItems)){
+                self.voteTotal = self.poll.pollItems.reduce(function(acc, item) {
+                    return acc.voteCount + item.voteCount;
+                })
+            }
+        });
     }
 
-    self.voteTotal = function() {
-        var pollItems = self.poll.pollItems;
-        return pollItems.reduce(function(acc, item){
-            return acc.voteCount + item.voteCount;
-        });
+    self.doSubmit = function() {
+        $http.post('/api/vote', self.poll);
     }
 }
 
