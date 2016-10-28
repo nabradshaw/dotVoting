@@ -45,10 +45,6 @@ public class PollService {
         return poll;
     }
 
-    public PollItemModel getPollItemFor(String pollId, String itemId) {
-        return null;
-    }
-
     public PollItemModel getPollItemById(String id){
 
         try {
