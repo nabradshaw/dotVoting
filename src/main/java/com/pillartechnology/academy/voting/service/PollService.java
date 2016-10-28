@@ -55,6 +55,14 @@ public class PollService {
         String id = String.valueOf(new Random().nextInt());
         poll.setId(id);
         this.polls.put(id, poll);
+
+        List<PollItemModel> items = poll.getPollItems();
+        if(items != null) {
+            for(int i = 0; i < items.size(); i++) {
+                items.get(i).setId(String.valueOf(i));
+            }
+        }
+
         return poll;
     }
 }

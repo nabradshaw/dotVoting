@@ -3,11 +3,13 @@ package com.pillartechnology.academy.voting.service;
 import com.pillartechnology.academy.voting.model.PollItemModel;
 import com.pillartechnology.academy.voting.model.PollModel;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 public class PollServiceTest {
 
@@ -89,5 +91,18 @@ public class PollServiceTest {
 
         assertThat(created.getId()).isNotNull().isNotEmpty();
         assertThat(result).isSameAs(poll);
+    }
+
+    @Test
+    public void createPoll_SetsTheIdsForThePollItems() {
+        PollModel expected = new PollModel();
+        expected.setPollItems(Arrays.asList(new PollItemModel(), new PollItemModel(), new PollItemModel()));
+        PollService pollService = new PollService();
+
+        List<PollItemModel> items = pollService.createPoll(expected).getPollItems();
+
+        for(int i = 0; i < items.size(); i++) {
+            assertThat(items.get(i).getId()).isEqualTo(String.valueOf(i));
+        }
     }
 }
