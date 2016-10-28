@@ -26,6 +26,18 @@ describe("PollCreateController", function() {
 
     });
 
+     describe("when a delete button is clicked", function() {
+
+            it("removes the poll item", function() {
+                controller.pollItems = [1, 2];
+                controller.deleteItem(0);
+
+                expect(controller.pollItems.length).toEqual(1);
+                expect(controller.pollItems[0]).toEqual(2);
+            });
+
+        });
+
     describe('when new item button is clicked', function() {
         it('should add a new item text area', function() {
             controller.pollItems = [];
@@ -33,7 +45,7 @@ describe("PollCreateController", function() {
 
             expect(controller.pollItems.length).toEqual(1);
             expect(controller.pollItems[0].description).toEqual("");
-        })
+        });
     });
 
     describe('when loading the page', function() {

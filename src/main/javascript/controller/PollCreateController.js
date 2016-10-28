@@ -16,6 +16,10 @@ function PollCreateController($http) {
         });
     }
 
+    this.deleteItem = function(index) {
+        this.pollItems.splice(index, 1);
+    }
+
 }
 
 angular
