@@ -10,16 +10,17 @@ describe("PollCreateController", function() {
 
     describe("when create poll is clicked", function() {
 
-        describe('creates a poll with', function() {
-            it("a title", function() {
-                var expected = "some title";
-                controller.title = expected;
-                controller.createPoll();
+        it("creates a poll with all attributes", function() {
+            var expectedTitle = "some title";
+            var expectedItems = ['item 1', 'item 2'];
 
-                httpBackend.when('POST', '/api/list').respond({});
-                httpBackend.expectPOST('/api/list', { title: expected });
-                httpBackend.flush();
-            });
+            controller.title = expectedTitle;
+            controller.pollItems = expectedItems;
+            controller.createPoll();
+
+            httpBackend.when('POST', '/api/list').respond({});
+            httpBackend.expectPOST('/api/list', { title: expectedTitle, pollItems: expectedItems });
+            httpBackend.flush();
         });
 
 
