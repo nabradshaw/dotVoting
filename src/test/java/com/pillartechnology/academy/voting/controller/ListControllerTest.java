@@ -26,7 +26,7 @@ public class ListControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-    
+
     @Test
     public void savePoll_SavesTheCorrectPoll() {
         PollModel expected = new PollModel();
