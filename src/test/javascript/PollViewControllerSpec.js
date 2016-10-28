@@ -1,11 +1,13 @@
 describe("PollViewController", function() {
-    var controller, httpBackend;
+    var controller, httpBackend, location;
 
     beforeEach(module('dot-voting'));
 
-    beforeEach(inject(function($controller, $httpBackend, $http) {
+    beforeEach(inject(function($controller, $httpBackend, $http, $location) {
         httpBackend = $httpBackend;
-        controller = $controller('PollViewController', { $http : $http });
+        location = $location;
+        spyOn(location, 'url');
+        controller = $controller('PollViewController', { $http : $http, $location : location });
     }));
 
     describe("when getPoll is called", function() {
@@ -52,6 +54,15 @@ describe("PollViewController", function() {
             controller.doSubmit();
 
             httpBackend.flush();
+        });
+
+        it("serves results page on success", function() {
+            controller.poll = createMockJsonModel(0,0);
+            httpBackend.expectPOST('/api/vote', createMockJsonModel(0,0)).respond({});
+
+            controller.doSubmit();
+            httpBackend.flush();
+            expect(location.url).toHaveBeenCalledWith("/results");
         });
     });
 

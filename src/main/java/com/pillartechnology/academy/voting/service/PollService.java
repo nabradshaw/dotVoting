@@ -40,4 +40,12 @@ public class PollService {
     public void savePoll(PollModel poll) {
         this.poll = poll;
     }
+
+    public PollItemModel getPollItemById(String id){
+        for(PollItemModel itemModel : poll.getPollItems()){
+            if(itemModel.getId().equalsIgnoreCase(id))
+                return itemModel;
+        }
+        return null;
+    }
 }
