@@ -4,13 +4,13 @@ import com.pillartechnology.academy.voting.model.PollItemModel;
 import com.pillartechnology.academy.voting.model.PollModel;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PollService {
 
     private PollModel poll;
+    private Map<String, PollModel> polls = new HashMap<>();
     private static final String DEFAULT_ID = "1";
     private static final String DEFAULT_TITLE = "Default Poll";
 
@@ -32,6 +32,12 @@ public class PollService {
         this.poll = poll;
     }
 
+    public PollService(Collection<PollModel> polls) {
+        for(PollModel poll : polls) {
+            this.polls.put(poll.getId(), poll);
+        }
+    }
+
 
     public PollModel getPoll() {
         return poll;
@@ -39,5 +45,9 @@ public class PollService {
 
     public void savePoll(PollModel poll) {
         this.poll = poll;
+    }
+
+    public PollModel getPoll(String id) {
+        return polls.get(id);
     }
 }

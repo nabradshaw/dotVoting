@@ -4,6 +4,7 @@ import com.pillartechnology.academy.voting.model.PollItemModel;
 import com.pillartechnology.academy.voting.model.PollModel;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,4 +68,14 @@ public class PollServiceTest {
         }
     }
 
+    @Test
+    public void getPoll_RetrievesThePollFromAvailablePolls() {
+        PollModel poll = new PollModel();
+        poll.setId("12345");
+
+        PollService pollService = new PollService(Arrays.asList(poll));
+        PollModel actual = pollService.getPoll(poll.getId());
+
+        assertThat(actual).isSameAs(poll);
+    }
 }
