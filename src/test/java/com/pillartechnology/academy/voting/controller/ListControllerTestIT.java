@@ -56,6 +56,16 @@ public class ListControllerTestIT {
     }
 
     @Test
+    public void getPoll_ById_ReturnsPoll() throws Exception {
+        PollModel poll = new PollModel();
+        PollModel savedPoll = pollService.createPoll(poll);
+        MvcResult result = mockMvc.perform(get("/api/poll/" + savedPoll.getId())).andReturn();
+        PollModel actual = mapper.readValue(result.getResponse().getContentAsByteArray(), PollModel.class);
+
+        assertThat(actual).isEqualTo(savedPoll);
+    }
+
+    @Test
     public void savePoll_SavesThePoll() throws Exception {
         PollModel poll = new PollModel();
         poll.setTitle("My Title");
