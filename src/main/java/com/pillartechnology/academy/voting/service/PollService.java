@@ -5,13 +5,13 @@ import com.pillartechnology.academy.voting.model.PollModel;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class PollService {
 
     private Map<String, PollModel> polls = new HashMap<>();
-    private int numPolls = 0;
+    private int nextPollId = 0;
+    private int nextItemId = 0;
 
     public PollService() {
 
@@ -29,19 +29,24 @@ public class PollService {
     }
 
     public PollModel createPoll(PollModel poll) {
-        String id = String.valueOf(numPolls);
-        numPolls++;
+        String id = String.valueOf(nextPollId);
+        nextPollId++;
         poll.setId(id);
         this.polls.put(id, poll);
 
         List<PollItemModel> items = poll.getPollItems();
         if(items != null) {
             for(int i = 0; i < items.size(); i++) {
-                items.get(i).setId(String.valueOf(i));
+                items.get(i).setId(String.valueOf(nextItemId));
+                nextItemId++;
             }
         }
 
         return poll;
+    }
+
+    public PollItemModel getPollItemFor(String pollId, String itemId) {
+        return null;
     }
 
     public PollItemModel getPollItemById(String id){

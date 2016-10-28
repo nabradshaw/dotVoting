@@ -49,16 +49,20 @@ public class PollServiceTest {
     }
 
     @Test
-    public void createPoll_SetsTheIdsForThePollItems() {
-        PollModel expected = new PollModel();
-        expected.setPollItems(Arrays.asList(new PollItemModel(), new PollItemModel(), new PollItemModel()));
+    public void createPoll_SetsTheIdsForThePollItemsToUniqueValues() {
+        PollModel firstPoll = new PollModel();
+        firstPoll.setPollItems(Arrays.asList(new PollItemModel(), new PollItemModel()));
+        PollModel secondPoll = new PollModel();
+        secondPoll.setPollItems(Arrays.asList(new PollItemModel(), new PollItemModel()));
+
         PollService pollService = new PollService();
+        PollModel savedFirstPoll = pollService.createPoll(firstPoll);
+        PollModel savedSecondPoll = pollService.createPoll(secondPoll);
 
-        List<PollItemModel> items = pollService.createPoll(expected).getPollItems();
-
-        for(int i = 0; i < items.size(); i++) {
-            assertThat(items.get(i).getId()).isEqualTo(String.valueOf(i));
-        }
+        assertThat(savedFirstPoll.getPollItems().get(0).getId()).isEqualTo("0");
+        assertThat(savedFirstPoll.getPollItems().get(1).getId()).isEqualTo("1");
+        assertThat(savedSecondPoll.getPollItems().get(0).getId()).isEqualTo("2");
+        assertThat(savedSecondPoll.getPollItems().get(1).getId()).isEqualTo("3");
     }
 
     @Test
