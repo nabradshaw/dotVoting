@@ -12,8 +12,10 @@
                             <p>
                                 <label for="voteCountSpinner_{{item.id}}" class="col-xs-12">Vote Count</label>
                                 <input type="number" name="voteCountSpinner_{{item.id}}" id="voteCountSpinner_{{item.id}}"
-                                       ng-model="item.voteCount" class="col-xs-12"
-                                       ng-change="ctrl.calculateRemainingVotes()"/>
+                                        ng-model="item.voteCount" class="col-xs-12"
+                                        ng-change="ctrl.calculateRemainingVotes()"
+                                        ng-min="0"
+                                />
                             </p>
                         </div>
                     </div>
@@ -26,7 +28,7 @@
                         {{ctrl.remainingVotes}}
                     </div>
                 </div>
-                <div class="panel panel-danger" ng-show="ctrl.remainingVotes < 0 || ctrl.hasNegativeVoteCount">
+                <div class="panel panel-danger" ng-show="ctrl.remainingVotes < 0 || votingForm.$invalid">
                     <div class="panel-heading">
                         <h3 class="panel-title">ERROR</h3>
                     </div>
@@ -38,7 +40,7 @@
                 </div>
                 <p>
                     <button class="btn btn-primary btn-lg center-block"
-                            ng-disabled="ctrl.remainingVotes < 0 || ctrl.hasNegativeVoteCount">Submit</button>
+                            ng-disabled="ctrl.remainingVotes < 0 || votingForm.$invalid">Submit</button>
                 </p>
             </form>
         </div>
