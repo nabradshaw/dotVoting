@@ -7,8 +7,8 @@ function PollCreateController($http, $location) {
     }];
 
     this.createPoll = function() {
-        $http.post('/api/list', { title: this.title, pollItems: this.pollItems }).then(function() {
-            $location.url('/');
+        $http.post('/api/poll', { title: this.title, pollItems: this.pollItems }).then(function(response) {
+            $location.url('/poll/' + response.data.id);
         });
     }
 

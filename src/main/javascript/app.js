@@ -1,12 +1,12 @@
 function appConfig($routeProvider, $locationProvider) {
 
     $routeProvider
-        .when('/', {
+        .when('/poll/:id', {
             templateUrl: 'PollView.html',
             controller: 'PollViewController',
             controllerAs: 'ctrl'
         })
-        .when('/results', {
+        .when('/results/:id', {
             templateUrl: 'PollResults.html',
             controller: 'PollViewController',
             controllerAs: 'ctrl'
@@ -17,7 +17,7 @@ function appConfig($routeProvider, $locationProvider) {
             controllerAs: 'ctrl'
         })
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/create'
         });
 
 }

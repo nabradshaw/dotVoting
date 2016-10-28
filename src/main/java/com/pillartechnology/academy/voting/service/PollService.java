@@ -4,48 +4,59 @@ import com.pillartechnology.academy.voting.model.PollItemModel;
 import com.pillartechnology.academy.voting.model.PollModel;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PollService {
 
-    private PollModel poll;
-    private static final String DEFAULT_ID = "1";
-    private static final String DEFAULT_TITLE = "Default Poll";
+    private Map<String, PollModel> polls = new HashMap<>();
+    private int nextPollId = 0;
+    private int nextItemId = 0;
 
     public PollService() {
-        poll = new PollModel();
-        poll.setId(DEFAULT_ID);
-        poll.setTitle(DEFAULT_TITLE);
-        List<PollItemModel> items = new ArrayList<>();
-        for(int i = 1; i <= 3; i++) {
-            PollItemModel item = new PollItemModel();
-            item.setDescription(String.valueOf(i));
-            item.setId(String.valueOf(i));
-            items.add(item);
+
+    }
+
+
+    public PollService(Collection<PollModel> polls) {
+        for(PollModel poll : polls) {
+            this.polls.put(poll.getId(), poll);
         }
-        poll.setPollItems(items);
     }
 
-    public PollService(PollModel poll) {
-        this.poll = poll;
+    public PollModel getPoll(String id) {
+        return polls.get(id);
     }
 
+    public PollModel createPoll(PollModel poll) {
+        String id = String.valueOf(nextPollId);
+        nextPollId++;
+        poll.setId(id);
+        this.polls.put(id, poll);
 
-    public PollModel getPoll() {
+        List<PollItemModel> items = poll.getPollItems();
+        if(items != null) {
+            for(int i = 0; i < items.size(); i++) {
+                items.get(i).setId(String.valueOf(nextItemId));
+                nextItemId++;
+            }
+        }
+
         return poll;
     }
 
-    public void savePoll(PollModel poll) {
-        this.poll = poll;
+    public PollItemModel getPollItemById(String id){
+
+        try {
+            return polls.values().stream()
+                .map(p -> p.getPollItems())
+                .flatMap(i -> i.stream())
+                .filter(i -> id.equals(i.getId()))
+                .findFirst()
+                .get();
+        } catch(NoSuchElementException e) {
+            return null;
+        }
     }
 
-    public PollItemModel getPollItemById(String id){
-        for(PollItemModel itemModel : poll.getPollItems()){
-            if(itemModel.getId().equalsIgnoreCase(id))
-                return itemModel;
-        }
-        return null;
-    }
 }
