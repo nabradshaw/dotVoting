@@ -13,6 +13,7 @@ public class PollService {
     private Map<String, PollModel> polls = new HashMap<>();
     private static final String DEFAULT_ID = "1";
     private static final String DEFAULT_TITLE = "Default Poll";
+    private int numPolls = 0;
 
     public PollService() {
         poll = new PollModel();
@@ -52,7 +53,8 @@ public class PollService {
     }
 
     public PollModel createPoll(PollModel poll) {
-        String id = String.valueOf(new Random().nextInt());
+        String id = String.valueOf(numPolls);
+        numPolls++;
         poll.setId(id);
         this.polls.put(id, poll);
 

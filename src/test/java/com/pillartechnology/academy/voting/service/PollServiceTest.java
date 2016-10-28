@@ -94,6 +94,20 @@ public class PollServiceTest {
     }
 
     @Test
+    public void createPoll_SetThePollIdsSequentiallyStartingAt0() {
+        PollService pollService = new PollService();
+
+        PollModel first = new PollModel();
+        PollModel second = new PollModel();
+
+        PollModel savedFirst = pollService.createPoll(first);
+        PollModel savedSecond = pollService.createPoll(second);
+
+        assertThat(savedFirst.getId()).isEqualTo("0");
+        assertThat(savedSecond.getId()).isEqualTo("1");
+    }
+
+    @Test
     public void createPoll_SetsTheIdsForThePollItems() {
         PollModel expected = new PollModel();
         expected.setPollItems(Arrays.asList(new PollItemModel(), new PollItemModel(), new PollItemModel()));
