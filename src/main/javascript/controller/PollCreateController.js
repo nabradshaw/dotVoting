@@ -20,6 +20,10 @@ function PollCreateController($http) {
         this.pollItems.splice(index, 1);
     }
 
+    this.canDelete = function() {
+        return true;
+    }
+
 }
 
 angular

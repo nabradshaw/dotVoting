@@ -55,4 +55,12 @@ describe("PollCreateController", function() {
             expect(controller.pollItems[1].description).toEqual("");
         });
     });
+
+    describe('when there are more than two items', function() {
+        it('should show the delete button on the poll items', function() {
+            controller.pollItems = [1, 2, 3];
+
+            expect(controller.canDelete()).toEqual(true);
+        });
+    });
 });
