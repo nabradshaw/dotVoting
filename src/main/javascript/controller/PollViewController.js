@@ -1,11 +1,11 @@
-function PollViewController($http, $location) {
+function PollViewController($http, $location, $routeParams) {
     var self = this;
     self.voteTotal = 0;
     self.maxVotes = 3;
     self.remainingVotes = self.maxVotes;
 
     self.getPoll = function() {
-        $http.get('/api/list', {}).then(function(response) {
+        $http.get('/api/poll/' + $routeParams.id, {}).then(function(response) {
             self.poll = response.data;
             if (angular.isDefined(self.poll.pollItems)) {
                 angular.forEach(self.poll.pollItems, function(value, index) {
@@ -18,7 +18,7 @@ function PollViewController($http, $location) {
     self.doSubmit = function() {
         if (self.remainingVotes >= 0) {
             $http.post('/api/vote', self.poll).then(function(response){
-                $location.url('/results');
+                $location.url('/results/' + $routeParams.id);
             });
         }
     }

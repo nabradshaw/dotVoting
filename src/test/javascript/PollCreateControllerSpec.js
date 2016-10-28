@@ -19,18 +19,18 @@ describe("PollCreateController", function() {
             controller.pollItems = expectedItems;
             controller.createPoll();
 
-            httpBackend.when('POST', '/api/list').respond({});
-            httpBackend.expectPOST('/api/list', { title: expectedTitle, pollItems: expectedItems });
+            httpBackend.when('POST', '/api/poll').respond({});
+            httpBackend.expectPOST('/api/poll', { title: expectedTitle, pollItems: expectedItems });
             httpBackend.flush();
         });
 
         it('should redirect to the newly created poll', function() {
             controller.createPoll();
 
-            httpBackend.when('POST', '/api/list').respond({});
+            httpBackend.when('POST', '/api/poll').respond({id: 1});
             httpBackend.flush();
 
-            expect(location.url).toHaveBeenCalledWith('/');
+            expect(location.url).toHaveBeenCalledWith('/poll/1');
         });
 
 
