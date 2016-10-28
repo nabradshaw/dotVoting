@@ -10,7 +10,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Title</label>
-                        <input type="text" class="form-control">
+                        <input ng-model="ctrl.title" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                   <button class="btn btn-primary btn-lg btn-block">Create Poll!</button>
+                   <button ng-click="ctrl.createPoll()" class="btn btn-primary btn-lg btn-block">Create Poll!</button>
                 </div>
             </div>
         </div>

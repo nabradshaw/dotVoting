@@ -1,6 +1,6 @@
 function PollCreateController($http) {
     this.title = "";
-    this.pollItems = "";
+    this.pollItems = [];
 
     this.createPoll = function() {
         $http.post('/api/list', { title: this.title, pollItems: this.pollItems });
