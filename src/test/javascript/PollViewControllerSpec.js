@@ -1,5 +1,5 @@
 describe("PollViewController", function() {
-    var controller, httpBackend, location;
+    var controller, httpBackend, location, routeParams;
 
     beforeEach(module('dot-voting'));
 
@@ -7,13 +7,14 @@ describe("PollViewController", function() {
         httpBackend = $httpBackend;
         location = $location;
         spyOn(location, 'url');
-        controller = $controller('PollViewController', { $http : $http, $location : location });
+        routeParams = { id: 0 }
+        controller = $controller('PollViewController', { $http : $http, $location : location, $routeParams: routeParams });
     }));
 
     describe("when getPoll is called", function() {
         it("requests a list of choices", function() {
-            httpBackend.when('GET', '/api/list').respond({});
-            httpBackend.expectGET('/api/list');
+            httpBackend.when('GET', '/api/poll/' + routeParams.id).respond({});
+            httpBackend.expectGET('/api/poll/' + routeParams.id);
 
             controller.getPoll();
 
@@ -21,7 +22,7 @@ describe("PollViewController", function() {
         });
 
         it("attaches list to controller", function() {
-           httpBackend.when('GET', '/api/list').respond([1,2,3,4]);
+           httpBackend.when('GET', '/api/poll/' + routeParams.id).respond([1,2,3,4]);
 
            controller.getPoll();
 
@@ -30,7 +31,7 @@ describe("PollViewController", function() {
         });
 
         it("Vote total is empty when no votes cast", function() {
-            httpBackend.when('GET', '/api/list').respond(createMockJsonModel(0, 0));
+            httpBackend.when('GET', '/api/poll/' + routeParams.id).respond(createMockJsonModel(0, 0));
             controller.getPoll();
             httpBackend.flush();
 
@@ -38,7 +39,7 @@ describe("PollViewController", function() {
         });
 
         it("Calculates Vote total", function() {
-            httpBackend.when('GET', '/api/list').respond(createMockJsonModel(1, 2));
+            httpBackend.when('GET', '/api/poll/' + routeParams.id).respond(createMockJsonModel(1, 2));
             controller.getPoll();
             httpBackend.flush();
 

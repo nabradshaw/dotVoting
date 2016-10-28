@@ -1,9 +1,9 @@
-function PollViewController($http, $location) {
+function PollViewController($http, $location, $routeParams) {
     var self = this;
     self.voteTotal = 0;
 
     self.getPoll = function() {
-        $http.get('/api/list', {}).then(function(response) {
+        $http.get('/api/poll/' + $routeParams.id, {}).then(function(response) {
             self.poll = response.data;
             self.pollItems = self.poll.pollItems;
             if (angular.isDefined(self.poll.pollItems)) {
