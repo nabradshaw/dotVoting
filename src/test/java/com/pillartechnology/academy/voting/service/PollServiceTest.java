@@ -80,7 +80,7 @@ public class PollServiceTest {
     }
 
     @Test
-    public void createPoll_AddsNewPollToTheAvailablePolls() {
+    public void createPoll_SetThePollIdAndAddsNewPollToTheAvailablePolls() {
         PollModel poll = new PollModel();
         PollService pollService = new PollService();
 
